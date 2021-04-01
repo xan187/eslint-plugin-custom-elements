@@ -10,11 +10,6 @@ Many expectations from an element are not true during the `constructor` call. Fo
 - access any child elements (`.children` will always be an empty `HTMLCollection`).
 - Fire events that bubble. As the node is not connected it cannot bubble.
 
-Also, there are many edge cases that can cause complications inside the constructor, for example:
-
-- Creating child elements and appending them will cause _their_ connected callbacks to fire, but their parent (the current element) will be disconnected from the DOM.
-- Changing attributes will cause `attributeChangedCallback` to fire, which may expect to be connected.
-
 ## Rule Details
 
 This rule disallows using the `constructor` in an HTMLElement class.
@@ -23,7 +18,7 @@ This rule disallows using the `constructor` in an HTMLElement class.
 
 ```js
 class FooBar extends HTMLElement {
-  constructor() {
+  Constructor() {
     super()
     this.initialState = {}
   }
@@ -34,7 +29,7 @@ class FooBar extends HTMLElement {
 
 ```js
 class FooBar extends HTMLElement {
-  connectedCallback() {
+  ConnectedCallback() {
     this.initialState = {}
   }
 }
@@ -46,4 +41,4 @@ If you are comfortable with the trade-offs of using the `constructor` function.
 
 ## Version
 
-This rule was introduced in v0.0.1
+This rule was introduced in v0.0.2
